@@ -1,0 +1,27 @@
+body{
+    margin: 0;
+    padding: 0.25%;
+    background-color: white;   
+}
+
+/* body::-webkit-scrollbar {
+    display: none;
+} */
+
+/*******    Nav Bar Elements   ******/
+#NavBar ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: White;
+    position: fixed;
+    width: 100%;
+    text-align: right;
+    z-index: 10000;
+}
+
+#NavBar li{
+    display: inline;
+    z-index: 10000;
+    padding-right: 2.5%;
+}
