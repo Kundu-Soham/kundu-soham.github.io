@@ -4,6 +4,13 @@
     box-sizing: border-box;
 }
 
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
@@ -57,7 +64,6 @@ nav {
     display: none;
 }
 
-/* About Me Page */
 header {
     display: flex;
     justify-content: center;
@@ -72,6 +78,7 @@ header h1 {
     font-weight: 500;
 }
 
+/* About Me Page */
 .container {
     max-width: 900px;
     margin: 2rem auto;
@@ -106,7 +113,7 @@ header h1 {
 }
 
 .project-card-about-page {
-    flex: 1 1 calc(45% - 1rem);
+    flex: 1 1 calc(30% - 1rem); /* Adjusted for 3 columns */
     background: #f4f4f4;
     padding: 1rem;
     border-radius: 8px;
@@ -123,6 +130,7 @@ header h1 {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
     color: #333;
+    text-align: center;
 }
 
 .project-card-about-page p {
@@ -175,6 +183,25 @@ header h1 {
 
 .project-card a:hover {
     background: #1e90ff;
+}
+
+/* Project Details Section */
+.project-details {
+    margin-top: 3rem;
+}
+
+.project-details h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #444;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.project-details p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
 }
 
 /* Footer */
