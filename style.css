@@ -139,7 +139,12 @@ header h1 {
 }
 
 /* Projects Page */
-.projects-grid {
+.project-category{
+    text-align: center;
+    background-color: whitesmoke;
+}
+
+/* .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
@@ -183,7 +188,7 @@ header h1 {
 
 .project-card a:hover {
     background: #1e90ff;
-}
+} */
 
 /* Project Details Section */
 .project-details {
