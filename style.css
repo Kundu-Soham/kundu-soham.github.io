@@ -315,6 +315,15 @@ details {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+[data-theme="dark"] details{
+    background-color: #00000045;
+    box-shadow: #00000045;
+}
+
+[data-theme="dark"] details[open]{
+    background-color: #00000045;
+}
+
 summary {
     font-weight: 600;
     margin-bottom: 0.5rem;
@@ -328,4 +337,8 @@ summary::-webkit-details-marker {
 
 details[open] {
     background-color: rgba(0, 0, 0, 0.06);
+}
+
+.projectDate{
+    font-weight: bold;
 }
