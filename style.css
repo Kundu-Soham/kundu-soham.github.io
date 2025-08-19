@@ -223,6 +223,25 @@ section {
     font-weight: 800;
     margin-bottom: 1.2rem;
     color: var(--text);
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .project h3 {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .project h3 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .project h3 {
+        font-size: 1.25rem;
+    }
 }
 
 .project p {
@@ -237,6 +256,7 @@ section {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.25rem;
     margin-bottom: 1.8rem;
+    align-items: center;
 }
 
 .project-images img {
@@ -246,6 +266,18 @@ section {
     object-fit: cover;
     box-shadow: 0 6px 20px var(--shadow);
 }
+
+.project-images:has(img:only-child) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.project-images:has(img:only-child) img {
+    width: 60%;
+    max-width: 800px;
+}
+
 
 .contact {
     text-align: center;
@@ -344,6 +376,7 @@ details[open] {
 }
 
 .unfinshedProjects{
+    text-align: center;
     font-size: x-large;
     font-weight: bold;
     color: blue;
