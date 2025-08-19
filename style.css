@@ -342,3 +342,9 @@ details[open] {
 .projectDate{
     font-weight: bold;
 }
+
+.unfinshedProjects{
+    font-size: x-large;
+    font-weight: bold;
+    color: blue;
+}
