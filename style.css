@@ -278,7 +278,6 @@ section {
     max-width: 800px;
 }
 
-
 .contact {
     text-align: center;
     color: var(--text);
@@ -380,4 +379,5 @@ details[open] {
     font-size: x-large;
     font-weight: bold;
     color: blue;
+    margin-bottom: 1%;
 }
