@@ -162,7 +162,7 @@ section {
     font-size: 3rem;
     font-weight: 900;
     margin-bottom: 2.5rem;
-    text-align: center;
+    text-align: center; /* Projects titles stay centered */
     color: var(--text);
     position: relative;
     letter-spacing: -0.03em;
@@ -197,6 +197,117 @@ section {
     text-shadow: none;
 }
 
+/* Hi, I'm Soham About Section */
+.about-container {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto 5rem;
+}
+
+.about-text {
+    flex: 2;
+    min-width: 300px;
+}
+
+.about-text h2 {
+    font-size: 3.25rem; /* Prominent title */
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    text-align: left; /* Left-align on desktop */
+    color: var(--text);
+}
+
+/* Keep blue bar under this title */
+.about-text h2::after {
+    content: '';
+    display: block;
+    width: 90px;
+    height: 5px;
+    background: var(--accent);
+    margin: 0.75rem 0 0;
+    border-radius: 3px;
+    box-shadow: 0 2px 8px var(--accent);
+}
+
+.about-image {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem; /* space between circular and square frames */
+    margin-top: 2rem; /* move frames slightly lower */
+}
+
+.image-frame {
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 1 / 1;
+    background-color: var(--card-bg);
+    border: 3px solid var(--accent);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--subtext);
+    font-weight: bold;
+    box-shadow: 0 6px 20px var(--shadow);
+    overflow: hidden;
+}
+
+/* Circular frame */
+.image-frame.circular {
+    border-radius: 50%;
+}
+
+.image-frame.circular img{
+    width: 122%;
+}
+
+/* Square frame */
+.image-frame.square {
+    border-radius: 12px;
+    max-width: 230px;
+}
+
+.image-frame.square img{
+    width: 95%;
+}
+
+.image-frame.square2 {
+    border-radius: 12px;
+    max-width: 230px;
+}
+
+.image-frame.square2 img{
+    width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .about-image, .about-text {
+        min-width: 100%;
+    }
+
+    .about-text h2 {
+        text-align: center; /* Centered on mobile */
+        font-size: 2.75rem;
+    }
+
+    .about-image {
+        margin-top: 0;
+    }
+}
+
+/* Projects */
 .project {
     background: var(--card-bg);
     border-radius: 1.5rem;
@@ -223,7 +334,7 @@ section {
     font-weight: 800;
     margin-bottom: 1.2rem;
     color: var(--text);
-    text-align: center;
+    text-align: center; /* Keep project titles centered */
 }
 
 @media (max-width: 1024px) {
