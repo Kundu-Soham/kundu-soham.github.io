@@ -492,3 +492,7 @@ details[open] {
     color: blue;
     margin-bottom: 1%;
 }
+
+figcaption{
+    text-align: center;
+}
