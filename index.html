@@ -123,42 +123,6 @@
       flex-shrink: 0;
     }
 
-    /* ─── NAV BAR ─── */
-    nav.no-print {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .nav-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 52px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: .01em;
-      transition: color .15s;
-    }
-
-    .nav-links a:hover { color: var(--ink); }
-
     /* ─── MAIN LAYOUT ─── */
     main {
       max-width: 900px;
@@ -412,8 +376,7 @@
       .about-grid { grid-template-columns: 1fr; }
       header { padding: 40px 24px; }
       main { padding: 40px 24px; }
-      .nav-inner { padding: 0 24px; }
-      .project-gallery { grid-auto-flow: row; grid-auto-columns: auto; }
+      .project-img { height: 160px; }
     }
   </style>
 </head>
@@ -436,16 +399,6 @@
       </div>
     </div>
   </header>
-
-  <nav class="no-print">
-    <div class="nav-inner">
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
 
   <main>
     <section id="about">
