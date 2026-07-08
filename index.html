@@ -1,289 +1,643 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Soham's Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"/>
-    <link href="/style.css"rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soham's Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TOKENS ─── */
+    :root {
+      --bg:       #f4f2ee;
+      --surface:  #ffffff;
+      --border:   #d6cfc4;
+      --ink:      #1a1714;
+      --muted:    #6b6560;
+      --accent:   #c85c1f;      /* burnt-orange – machined metal / engineering mark-up */
+      --accent2:  #2c5f8a;      /* steel blue */
+      --rule:     #d6cfc4;
+      --tag-bg:   #ede9e2;
+      --tag-ink:  #4a4540;
+      --print-bg: #ffffff;
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      background: var(--ink);
+      color: #ffffff;
+      padding: 56px 40px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 160px; height: 160px;
+      border-bottom-left-radius: 4px;
+      background: linear-gradient(225deg, var(--accent) 0%, transparent 60%);
+      opacity: .35;
+      pointer-events: none;
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 46px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+      color: #ffffff;
+    }
+
+    h1 span {
+      display: block;
+      font-weight: 300;
+      color: rgba(255,255,255,.55);
+      font-size: .55em;
+      letter-spacing: .01em;
+      margin-top: 6px;
+    }
+
+    .header-meta {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 13px;
+      color: rgba(255,255,255,.55);
+    }
+
+    .header-meta a { color: rgba(255,255,255,.7); text-decoration: none; }
+    .header-meta a:hover { color: #ffffff; }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .meta-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ─── NAV BAR ─── */
+    nav.no-print {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: .01em;
+      transition: color .15s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ─── MAIN LAYOUT ─── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 56px 40px 80px;
+    }
+
+    /* ─── SECTION HEADINGS ─── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .section-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(200,92,31,.08);
+      border: 1px solid rgba(200,92,31,.2);
+      border-radius: 2px;
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    section { margin-bottom: 64px; }
+
+    /* ─── ABOUT ─── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .about-text p { color: var(--muted); font-size: 15px; margin-bottom: 14px; }
+
+    .about-sidebar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 22px 24px;
+    }
+
+    .sidebar-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .skill-list li {
+      background: var(--tag-bg);
+      color: var(--tag-ink);
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 3px;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+    }
+
+    /* ─── PROJECTS ─── */
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      transition: box-shadow .2s, border-color .2s;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 4px 24px rgba(0,0,0,.08);
+      border-color: #c0b8b0;
+    }
+
+    .project-gallery {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      gap: 2px;
+      background: var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-img {
+      width: 100%;
+      height: 280px; /* Slightly enlarged from 220px to show engineering details cleanly */
+      object-fit: cover;
+      display: block;
+      background: #e2ded6;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+
+    .project-img:hover {
+      opacity: 0.9;
+    }
+
+    .project-body {
+      padding: 26px 28px;
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .project-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    .project-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      margin-top: 3px;
+    }
+
+    .project-desc p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 14px;
+      line-height: 1.7;
+    }
+    
+    .project-desc p:last-child {
+      margin-bottom: 0;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 3px;
+      background: var(--tag-bg);
+      color: var(--tag-ink);
+      border: 1px solid var(--border);
+    }
+    
+    .tag-wip {
+      background: rgba(200,92,31,.08);
+      color: var(--accent);
+      border-color: rgba(200,92,31,.2);
+    }
+
+    /* ─── LIGHTBOX MODAL ─── */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(26, 23, 20, 0.85);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ─── CONTACT ─── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+    }
+
+    .contact-card h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .contact-card a, .contact-card p {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .contact-card a:hover {
+      color: var(--accent);
+    }
+
+    footer {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px 40px;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+      header { padding: 40px 24px; }
+      main { padding: 40px 24px; }
+      .nav-inner { padding: 0 24px; }
+      .project-gallery { grid-auto-flow: row; grid-auto-columns: auto; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="toggle-container" role="button" aria-label="Toggle dark mode" tabindex="0" id="themeToggle">
-            <div class="toggle-button">
-                <div class="toggle-circle"></div>
-            </div>
+
+  <header>
+    <div class="header-inner">
+      <div class="header-label">Engineering Portfolio</div>
+      <h1>Soham Kundu<span>Mechanical Engineering Student @ University of Toronto</span></h1>
+      
+      <div class="header-meta">
+        <div class="meta-item">
+          <span class="meta-dot"></span>
+          <a href="mailto:soham.kundu@mail.utoronto.ca">soham.kundu@mail.utoronto.ca</a>
         </div>
-        <h1>Soham Kundu</h1>
-        <p>Mechanical Engineering Student @ University of Toronto</p>
-        <nav>
-            <a href="#about" tabindex="1">About</a>
-            <a href="#projects" tabindex="2">Projects</a>
-            <a href="/Portfolio Images/Soham_Kundu_Resume.pdf" target="_blank">Resume</a>
-            <a href="https://www.linkedin.com/in/sohamkundu-me" target="_blank">Linkedin</a>
-            <a href="mailto:soham.kundu@mail.utoronto.ca">Email</a>
-            <a href="#contact" tabindex="3">Contact</a>
-        </nav>
-    </header>
+        <div class="meta-item">
+          <span class="meta-dot"></span>
+          <a href="https://www.linkedin.com/in/sohamkundu-me" target="_blank">linkedin.com/in/sohamkundu-me</a>
+        </div>
+      </div>
+    </div>
+  </header>
 
-    <main>
-        <section id="about">
-            <div class="about-container">
-                <div class="about-text">
-                    <h2>Hi, I'm Soham</h2>
-                    <p>
-                        I'm a Mechanical Engineering student at the University of Toronto with a strong interest in Mechanical Design/Product Design Engineering. 
-                        I am motivated by work that allows me to take ideas from early concept to physical reality through creativity, technical problem solving, and iterative design.
-                        Additionally, I thrive both when working independently and collaborating with a team of highly motivated, like-minded individuals.
-                    </p>
-                    <p>
-                        As a part of the U of T Supermileage team (UTSM), I contribute to the design and manufacturing of a hydrogen-powered, fuel-efficient vehicle. 
-                        This experience, along with various collaborative and personal design projects has strengthened my interest in engineering roles that bridge innovation with hands-on development. 
-                        I also enjoy exploring personal projects using my own 3D printer, which fuels my curiosity and helps me enhance my techincal aptitude.
-                    </p>
-                    <p>
-                        Outside of engineering, I enjoy playing table tennis and chess as well as watching sports, which keep me active and help me maintain a good work-life balance.
-                    </p>
-                    <p>
-                        As I continue to grow and develop as an engineer, I invite you to take a look at some of the work I've done so far and follow along on my journey.
-                    </p>
-                </div>
-                <div class="about-image">
-                    <div class="image-frame circular">
-                        <img src="/Portfolio Images/ProfilePic.png">
-                    </div>
-                    <div class="image-frame square">
-                        <img src="/Portfolio Images/Uoft_IMG.jpg">
-                    </div>
-                    <div class="image-frame square2">
-                        <img src="/Portfolio Images/UTSM_Logo.jpg">
-                    </div>
-                </div>
-            </div>
-        </section>
+  <nav class="no-print">
+    <div class="nav-inner">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-        <section id="projects">
-            <h2 class="section-title">Projects</h2>
+  <main>
+    <section id="about">
+      <div class="section-header">
+        <div class="section-badge">01 // About</div>
+        <div class="section-rule"></div>
+      </div>
+      
+      <div class="about-grid">
+        <div class="about-text">
+            <p>I am a mechanical engineering student with hands-on experience designing and fabricating precision mechanical systems for the automotive, robotics, and rapid prototyping sectors. My background focuses on parametric CAD modeling using SolidWorks and Fusion 360, FEA structural analysis, and design-for-manufacturing (DFM/DFA) principles, which allows me to track projects from initial load calculations through to physical production.</p>
+            <p>I work actively at the intersection of analytical engineering rigor and hardware prototyping, with a proven track record of delivering optimized mechanical assemblies such as high-strength carbon fiber components and 6-DOF robotic arms. Furthermore, I am highly comfortable collaborating within multi-disciplinary engineering teams to guide systems from early-stage benchmarking and requirement definition through manufacturing validation and final assembly.</p>
+        </div>
+        
+        <div class="about-sidebar">
+          <div class="sidebar-title">Core Toolkit</div>
+          <ul class="skill-list">
+            <li>SolidWorks</li>
+            <li>DFM/DFA</li>
+            <li>Ansys</li>
+            <li>FEA</li>
+            <li>GD&T</li>
+            <li>3D Printing</li>
+            <li>Fusion 360</li>
+            <li>Machining: Mill, Lathe, Drill Press</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-            <article class="project">
-                <h3>Hobbyist Level Robot Arm for Cinematography</h3>
-                <!-- <h4 class="unfinshedProjects">(Work in Progress)</h4> -->
-                <div class="project-images">
-                    <img src="/Portfolio Images/RoboticArmCAD.JPG">
-                    <img src="Portfolio Images/RoboticArm_AssemblyDrawing.png">
-                </div>
-                <details>
-                    <summary>Project Details</summary>
-                    <p>
-                        This project involved the complete conceptual development of a long-reach robotic arm designed for beginner cinematographers. 
-                        Our team of five mechanical engineering students followed a full engineering design process that included benchmarking, specification development, concept generation, and analytical evaluation. 
-                        During benchmarking, the team examined more than ten commercial robotic camera systems. 
-                        We compared quantitative performance factors such as reach, payload, operating speed, and assembled weight. 
-                        This work guided the creation of engineering specifications that included a minimum reach of 1.5 meters, a payload range of 3 to 7 kilograms, an assembled mass under 100 kilograms, an assembly time under 45 minutes, and a cost limit of 3000 dollars. 
-                        These requirements ensured that the project remained realistic for our skill level and accessible for the intended user group.
-                        <br><br>
-                        With clear specifications in place, the team generated four candidate mechanical architectures that used different mechanical approaches. 
-                        These approaches included belt drives, planetary gearboxes, linear actuators, telescoping arm segments, and wrist structures with gimbal-type joints. 
-                        Each design was modeled and refined through torque calculations, mass estimation, and basic motion analysis. 
-                        Joint 1 required a 75:1 planetary gearbox that provided 195 newton-meters of output torque. 
-                        This value produced an angular acceleration of 5.9 radians per second squared for the 86.7 kilogram base. 
-                        Joint 2 needed 450 newton-meters of torque after gearbox reduction to rotate a 36.9 kilogram arm segment with a moment of inertia of about 83 kilogram meter squared. 
-                        Linear actuator requirements were also calculated using lead screw mechanics to confirm that the actuators could extend smoothly under load. 
-                        These analytical steps allowed the team to identify which design elements were feasible within the cost and performance limits.
-                        <br><br>
-                        To select the final design, the team created a weighted Pugh Matrix that compared all four concepts to a benchmark robot. 
-                        The comparison used criteria such as degrees of freedom, reach, payload capacity, motion speed, cost, weight, and assembly difficulty. 
-                        Candidate Design 2 ranked the highest with a total score of plus six because it offered the best balance of reach, stability, portability, and cost performance. 
-                        The final design combined the strongest elements from all concepts. 
-                        It used the two-axis base and coordinated belt-driven joints from Design 2, the linear actuator arrangement from Designs 3 and 4, and lightweight brushless motors at the wrist to achieve precise camera control. 
-                        The resulting six-joint structure supported more than 1.5 meters of reach and carried a 3 to 7 kilogram payload while remaining compatible with common household power.
-                        <br><br>
-                        Completing this project helped me progress toward my career goals of becoming a mechanical design engineer. 
-                        I want to work in fields that connect robotics, mechanical design, and real engineering applications. 
-                        This project supported those goals by giving me experience with system-level design, mechanical analysis, component selection, and structured decision making. 
-                        Designing a robotic arm from the ground up strengthened my ability to solve complex engineering problems and improved my teamwork and communication skills. 
-                        These abilities are essential for future work in robotics and in broader engineering design roles.
-                    </p>
-                </details>
-            </article>
+    <section id="projects">
+      <div class="section-header">
+        <div class="section-badge">02 // Projects</div>
+        <div class="section-rule"></div>
+      </div>
 
-            <article class="project">
-                <h3>One-Cylinder Pneumatic Engine</h3>
-                <div class="project-images">
-                    <img src="/Portfolio Images/OneCylinderPneumaticEngine.jpg">
-                    <img src="/Portfolio Images/OneCylinderPneumaticEngine_View2.jpg">
-                    <img src="/Portfolio Images/OneCylinderPneumaticEngine_View3.jpg">
-                </div>
-                <details>
-                    <summary>Project Details</summary>
-                    <p>
-                        I built a one-cylinder pneumatic engine as a precision machining and assembly project, which reflects my passion for mechanical design and turning conceptual ideas into functional products. 
-                        For this project, I manufactured eight aluminum and steel components to professional engineering drawings using a manual mill, lathe, and drill press. 
-                        The parts were finished to ±0.001 in tolerances and 32 µin Ra surfaces. 
-                        They were then assembled with careful alignment and sealing techniques that were verified using dial indicators and micrometers. 
-                        The completed engine was tested under 40–100 psi compressed air. 
-                        It achieved stable operation at roughly 1,200 RPM and demonstrated airtight performance, smooth motion, and overall mechanical reliability. 
-                        This project strengthened my interest in engineering roles that combine creative design with hands-on development.
-                    </p>
-                </details>
-            </article>
+      <div class="project-card">
+        <div class="project-gallery">
+          <img src="/Portfolio Images/RoboticArmCAD.JPG" alt="Robotic Arm CAD model" class="project-img" />
+          <img src="/Portfolio Images/RoboticArm_AssemblyDrawing.png" alt="Robotic Arm Assembly Drawing" class="project-img" />
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <h3 class="project-title">Robot Arm for Cinematography</h3>
+            <span class="project-year">Concept Design</span>
+          </div>
+          <div class="project-desc">
+            <p>Executed the structured conceptual development and parametric CAD optimization of a long-reach, six-axis robotic manipulator arm. Conducted extensive industrial benchmarking across 10+ commercial architectures to synthesize rigid quantitative engineering specifications, defining a reach greater than 1.5 meters, a payload capacity of 3 to 7 kilograms, and a total system mass under 100 kg while constraining the production budget under $3,000.</p>
+            <p>Performed structural torque, inertia, and load calculations to accurately size complex drivetrain subassemblies. The final engineering design utilized these calculations to specify a 75:1 planetary gearbox rated for 195 N-m and high-torque joints capable of delivering 450 N-m, generating detailed SolidWorks assembly models, detailed engineering drawings, and complete bills of materials using DFM, DFA, and GD&T principles.</p>
+          </div>
+          <div class="project-tags">
+            <span class="tag">System Design</span>
+            <span class="tag">SolidWorks</span>
+            <span class="tag">DFM/DFA</span>
+            <span class="tag">GD&T</span>
+            <span class="tag">BOMs</span>
+          </div>
+        </div>
+      </div>
 
-            <article class="project">
-                <h3>3D Printed Right-Angled Speed Reduction Gearbox</h3>
-                <div class="project-images">
-                    <figure><img src="/Portfolio Images/Gearbox_3Dprinted.JPG"><figcaption>Final Design</figcaption></figure>
-                    <figure><img src="/Portfolio Images/Gearbox_CAD.png"><figcaption>CAD Model</figcaption></figure>
-                    <figure><img src="/Portfolio Images/Gearbox_FirstIteration.jpg"><figcaption>First Iteration</figcaption></figure>
-                </div>
-                <details>
-                    <summary>Project Details</summary>
-                    <p>
-                        For this project, I worked as part of a four-person Mechanical Engineering team to design and build a fully 3D printed right angle gearbox that achieved a minimum 3:1 speed reduction. 
-                        The input and output shafts had intersecting axes of rotation, and the design ensured smooth power transmission, proper gear meshing, and a compact and easy-to-assemble layout. 
-                        I contributed to the mechanical design, created professional engineering drawings, and produced detailed design documentation to clearly communicate our decisions, calculations, and manufacturing considerations. 
-                        After finalizing the base configuration, I added an offset between the input and output shafts to better replicate the functionality of the original part and expand the capabilities of the design. The completed gearbox was successfully 3D printed, assembled, and tested. 
-                        It demonstrated reliable performance and validated the effectiveness of our collaborative design approach.
-                    </p>
-                </details>
-            </article>
+      <div class="project-card">
+        <div class="project-gallery">
+          <img src="/Portfolio Images/Gearbox_3Dprinted.JPG" alt="Final 3D printed gearbox" class="project-img" />
+          <img src="/Portfolio Images/Gearbox_CAD.png" alt="Gearbox CAD Model" class="project-img" />
+          <img src="/Portfolio Images/Gearbox_FirstIteration.jpg" alt="First iteration gearbox" class="project-img" />
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <h3 class="project-title">Right-Angled Speed Reduction Gearbox</h3>
+            <span class="project-year">Rapid Prototyping</span>
+          </div>
+          <div class="project-desc">
+            <p>Collaborated within a four-member engineering team to design, model, and rapid-prototype a functional, 3D-printed right-angle speed reduction gearbox delivering a 3:1 mechanical reduction. Handled the parametric CAD generation of the assembly in SolidWorks, implementing custom design-for-manufacturing and design-for-assembly (DFM/DFA) principles optimized to eliminate external fasteners and achieve a total 3D printing time under 6 hours.</p>
+            <p>Engineered the physical layout for a completely tool-free assembly process while strictly maintaining the required speed reduction constraints. Physical testing and manufacturing validation successfully achieved an assembly time of under 1 minute by an independent evaluator using the generated engineering drawings and assembly manual.</p>
+          </div>
+          <div class="project-tags">
+            <span class="tag">SolidWorks</span>
+            <span class="tag">3D Printing</span>
+            <span class="tag">Rapid Prototyping</span>
+            <span class="tag">DFM/DFA</span>
+          </div>
+        </div>
+      </div>
 
-            <article class="project">
-                <h3>Laptop Stand Design</h3>
-                <!-- <h4 class="unfinshedProjects">(Work in Progress)</h4> -->
-                <div class="project-images">
-                    <img src="/Portfolio Images/LaptopStand_Concept.png">
-                    <!-- <img src=".png"> -->
-                </div>
-                <details>
-                    <summary>Project Details</summary>
-                    <p>
-                        For this project, I designed an adjustable laptop stand with the goal of improving ergonomics and usability while keeping the structure lightweight and efficient to manufacture. 
-                        I created the CAD model in SolidWorks and optimized the geometry to provide strength and stability while minimizing material usage. 
-                        The stand includes a slot and sliding mechanism that allows adjustment to different heights. This ensures flexibility of use while maintaining airflow around the laptop. 
-                        I carefully defined tolerances for the sliding components to ensure smooth motion and precise fit, taking 3D printing constraints into account. 
-                        The next steps for this project include optimizing the design for my printer’s build volume, running FEA simulations to assess performance under load, and adding grooves to the slot mechanism to prevent unintentional collapse.
-                    </p>
-                </details>
-            </article>
+      <div class="project-card">
+        <div class="project-gallery">
+          <img src="/Portfolio Images/OneCylinderPneumaticEngine.jpg" alt="Pneumatic Engine View 1" class="project-img" />
+          <img src="/Portfolio Images/OneCylinderPneumaticEngine_View2.jpg" alt="Pneumatic Engine View 2" class="project-img" />
+          <img src="/Portfolio Images/OneCylinderPneumaticEngine_View3.jpg" alt="Pneumatic Engine View 3" class="project-img" />
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <h3 class="project-title">One-Cylinder Pneumatic Engine</h3>
+            <span class="project-year">Machining & Assembly</span>
+          </div>
+          <div class="project-desc">
+            <p>Fabricated and verified a high-tolerance, one-cylinder pneumatic engine to fulfill strict precision machining specifications. Translated formal engineering blueprints into physical hardware by operating manual mills, lathes, and precision drill presses to form eight distinct components out of aluminum and steel stocks.</p>
+            <p>Maintained critical interface tolerances within &plusmn;0.001 inches and achieved smooth surface finishes below 32 micro-inch Ra during the machining processes. Conducted formal functional testing with 40-100 psi compressed air to validate performance, successfully achieving 1,200 RPM during operation with complete mechanical reliability.</p>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Precision Machining</span>
+            <span class="tag">Mill</span>
+            <span class="tag">Lathe</span>
+            <span class="tag">Drill Press</span>
+            <span class="tag">Engineering Drawings</span>
+          </div>
+        </div>
+      </div>
 
-            <article class="project">
-                <h3>Wheel Wells & Tie Rod Cover Design - UTSM</h3>
-                <div class="project-images">
-                    <img src="/Portfolio Images/UTSM-WheelWells-TieRodCovers_IMG.png">
-                    <img src="/Portfolio Images/In-Car_UTSM-WheelWells-TieRodCovers_IMG.png">
-                </div>
-                <details>
-                    <summary>Project Details</summary>
-                    <p>
-                        As part of the University of Toronto Supermileage Team’s Mechanical team, I designed two aerodynamic wheel wells and two tie rod covers and integrated them into the full CAD assembly in SolidWorks. 
-                        I measured the available space for these components in SolidWorks and accounted for their full range of motion to ensure that the design covered the wheels and tie rods throughout every stage of a turn. 
-                        My focus was on meeting regulatory requirements while maintaining proper clearances and alignment within the larger assembly. 
-                        This process improved the structural fit of the design and supported the aerodynamic efficiency of the vehicle. 
-                        It also gave me meaningful experience working with large-scale CAD models and collaborating within a complex design workflow.
-                    </p>
-                </details>
-            </article>
+      <div class="project-card">
+        <div class="project-gallery">
+            <img src="/Portfolio Images/AppleWatchStand_viewCAD.png" alt="Apple Watch Stand CAD View" class="project-img" />
+          <img src="/Portfolio Images/AppleWatchStand_view1.png" alt="Apple Watch Stand View 1" class="project-img" />
+          <img src="/Portfolio Images/AppleWatchStand_view2.png" alt="Apple Watch Stand View 2" class="project-img" />
+          <img src="/Portfolio Images/AppleWatchStand_view3.png" alt="Apple Watch Stand View 3" class="project-img" />
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <h3 class="project-title">Apple Watch Stand</h3>
+            <span class="project-year">Product Design</span>
+          </div>
+          <div class="project-desc">
+            <p>Designed and rapid-prototyped a multi-device charging stand for consumer electronics, accommodating an Apple Watch and AirPods case within a compact, ergonomic desktop footprint. Handled the full parametric CAD modeling in SolidWorks, engineering custom geometric recesses for inductive charging pucks and integrated, press-fit cable routing channels to ensure clean wire management along the main support spine.</p>
+            <p>Leveraged additive manufacturing principles (3D printing) to iterate and fabricate the physical product, optimizing the model geometry to account for print tolerances, overhangs, and material constraints. Successfully validated the design through physical fitment testing, ensuring precise component tolerances, a stable center of gravity during device mounting, and seamless charging cable integration.</p>
+          </div>
+          <div class="project-tags">
+            <span class="tag">SolidWorks</span>
+            <span class="tag">3D Printing</span>
+            <span class="tag">Tolerances</span>
+          </div>
+        </div>
+      </div>
 
-            <article class="project">
-                <h3>3D Printing Explorations – Gears, Springs, and Tools</h3>
-                <div class="project-images">
-                    <img src="/Portfolio Images/3D-printed-Gears.png">
-                    <img src="/Portfolio Images/3D-printed-spiral-spring.png">
-                </div>
-                <details>
-                    <summary>Project Details</summary>
-                    <p>
-                        This project is an ongoing exploration of <b>3D printing</b> as I familiarize myself with my first <b>printer</b>. To build a foundation, I have been creating a variety of <b>sample parts</b> for <b>learning</b> and <b>testing</b> purposes, which has helped me better understand <b>tolerancing</b>, <b>slicer settings</b>, and how parameters such as <b>infill density</b> and <b>layer height</b> affect <b>print time</b>.
-                    </p>
-                    <p>
-                        One of my first test parts was a <b>spiral spring</b>, which I used to study the <b>flexibility of PLA</b> and evaluate how easily printed parts can bend. This experiment will help me optimize future <b>spring designs</b>. I also designed and printed a simple <b>spur gear mechanism</b> to understand how <b>tolerancing in SolidWorks</b> translates into physical parts. Using a <b>0.3 mm tolerance</b>, I found that the larger gear fit the base more smoothly than the smaller one, likely because the <b>printer nozzle</b> had to make sharper turns during the smaller gear’s print. After lightly filing the base, the smaller gear achieved the same smooth motion as the larger one.
-                    </p>
-                    <p>
-                        These early projects have given me valuable insights into both the technical and practical aspects of <b>additive manufacturing</b>, and this section will continue to grow as I print more <b>complex parts</b> and experiment with new ideas.
-                    </p>
-                </details>
-            </article>
+    </section>
 
-            <!-- <article class="project">
-                <h3>Exploring Simulation Software - SolidWorks Simulations</h3>
-                <div class="project-images">
-                    <img src=".png">
-                    <img src=".png">
-                </div>
-                <details>
-                    <summary>Project Details</summary>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum scelerisque dolor id sem vehicula, nec congue lorem viverra. Nam in bibendum mauris. Morbi placerat velit quis lorem gravida, id imperdiet mauris egestas. Morbi varius sodales tortor, vitae fermentum erat lobortis ut. Curabitur fringilla id justo non tincidunt. Proin condimentum purus at sem luctus, et pretium ligula congue. Cras ultricies sagittis justo, ac condimentum eros commodo at. Vivamus tincidunt justo vitae porttitor pretium. Integer sed finibus quam.
-                    </p>
-                </details>
-            </article> -->
+    <section id="contact">
+      <div class="section-header">
+        <div class="section-badge">03 // Contact</div>
+        <div class="section-rule"></div>
+      </div>
+      
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Primary Email</h3>
+          <p><a href="mailto:soham.kundu@mail.utoronto.ca">soham.kundu@mail.utoronto.ca</a></p>
+        </div>
+        <div class="contact-card">
+          <h3>Professional Network</h3>
+          <p><a href="https://www.linkedin.com/in/sohamkundu-me" target="_blank">linkedin.com/in/sohamkundu-me</a></p>
+        </div>
+        <div class="contact-card">
+          <h3>Availability</h3>
+          <p>Open to engineering design opportunities &amp; networking.</p>
+        </div>
+      </div>
+    </section>
+  </main>
 
-            <article class="project">
-                <h3>Chestnut Residence Green Roof Design</h3>
-                <div class="project-images">
-                    <img src="/Portfolio Images/ESP2_CAD_Design.jpg">
-                    <img src="/Portfolio Images/ESP2_CAD_Design2.png">
-                    <img src="/Portfolio Images/ESP2_CAD_Design3.png">
-                </div>
-                <details>
-                    <summary>Project Details</summary>
-                    <p>
-                        The <b>Hanging Gardens of Chestnut</b> was a conceptual <b>green roof design</b> for the 3rd-floor rooftop of <b>Chestnut Residence</b>, a dorm with over 1,100 students. 
-                        The goal was to make the rooftop a safe, welcoming, and visually appealing space that could be used year-round, while also improving <b>energy efficiency</b> by reducing <b>heat loss</b>. 
-                        This redesign was projected to save about <b>$12,000 annually</b> on HVAC costs, giving the client a 0.5% to 2% return on investment.
-                    </p>
-                    <p>
-                        I worked with a team of five engineers, and together we spent countless hours researching, modeling, and evaluating over 50 design concepts using <b>Excel</b> and <b>AutoCAD</b>. 
-                        After narrowing them down, we developed a high-feasibility <b>green roof plan</b> that balanced both functionality and efficiency.
-                    </p>
-                    <p>
-                        My role also involved conducting client interviews and technical scoping sessions to make sure we captured the client’s vision. 
-                        I helped turn those insights into a detailed <b>70+ page concept design specification</b> that fit within the budget and code requirements. 
-                        Finally, I presented our proposal, along with a slide deck, to the Engineering Manager and department executives, and our design was approved to move forward into the <b>implementation feasibility study</b>.
-                    </p>
-                    <p class="projectDate">
-                        This project was completed in:  April 2025
-                    </p>
-                </details>
-            </article>
+  <div id="lightbox" class="lightbox-modal">
+    <img id="lightboxImg" class="lightbox-content" src="" alt="Enlarged project view" />
+  </div>
 
-            <article class="project">
-                <h3>Dynamic Systems Vibration Simulator (Python/Matplotlib)</h3>
-                <div class="project-images">
-                    <img src="/Portfolio Images/VibrationSimulation.gif">
-                    <img src="/Portfolio Images/VibrationSimulationCode.png">
-                </div>
-                <details>
-                    <summary>Project Details</summary>
-                    <p>
-                        The first-year <b>Dynamics</b> course taught me more than just the fundamentals of physics behind moving objects. 
-                        After learning about moving particles, systems of particles, rigid bodies, and linkages, I found <b>vibrations</b> particularly intriguing. 
-                        Although this was an exciting new concept, I struggled to visualize the connection between vibrations and <b>differential equations</b>, specifically how vibrations are modeled using them. 
-                        I realized that my understanding of the material would improve if I had a program where I could manipulate different conditions and variables of a vibration and see both a visual representation of the motion and the differential equation that describes it. 
-                        After some research, I came across a few resources where others had created similar tools. Inspired by those, I developed an <b>animation</b> using <b>Matplotlib</b> and <b>Python</b>, where I can input a differential equation and see both a vibrating particle on a spring and a simultaneous graph of the equation.
-                    </p>    
-                    <p>
-                        Since this provides a basic understanding of simple vibrations involving only one spring, my next step for the project would be to expand it to more advanced scenarios, such as multiple springs positioned at different angles. 
-                        Adding this feature, where vibrations are influenced by several sources and factors, would allow users to explore more complex problems and support deeper learning about vibrations and differential equations.
-                    </p>
-                    <p class="projectDate">This project was completed in:  March 2025</p>
-                </details>
-            </article>
+  <footer>
+    <p>&copy; 2026 Soham Kundu. All rights reserved.</p>
+  </footer>
 
-        </section>
+  <script>
+    // Lightbox Functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const projectImages = document.querySelectorAll('.project-img');
 
-        <section class="contact" id="contact">
-            <h2 class="section-title">Contact</h2>
-            <p>Feel free to reach out for questions, internships, or networking.</p>
-            <p>Email: <a href="mailto:soham.kundu@mail.utoronto.ca">soham.kundu@mail.utoronto.ca</a></p>
-            <p>LinkedIn: <a href="https://www.linkedin.com/in/sohamkundu-me" target="_blank">linkedin.com/in/sohamkundu-me</a></p>
-        </section>
-    </main>
+    projectImages.forEach(image => {
+      image.addEventListener('click', () => {
+        lightboxImg.src = image.src;
+        lightboxImg.alt = image.alt;
+        lightbox.style.display = 'flex';
+      });
+    });
 
-    <footer>
-        <p>&copy; 2025 Soham Kundu. All rights reserved.</p>
-    </footer>
+    lightbox.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+      lightboxImg.src = '';
+    });
 
-    <script src="scripts.js"></script>
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+        lightbox.style.display = 'none';
+        lightboxImg.src = '';
+      }
+    });
+  </script>
+
 </body>
 </html>
